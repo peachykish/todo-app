@@ -1,26 +1,52 @@
 import React from "react";
 import "./App.css";
+import avatar from "./image/profile.png";
 
+const todoList = [
+  {
+    id: 1,
+    title: "Go to Grocery",
+    description: "pick up recipe ingredients",
+    completed: false,
+  },
+  {
+    id: 2,
+    title: "Go to gym",
+    description: "jog a mile",
+    completed: false,
+  },
+  {
+    id: 3,
+    title: "Take a nap",
+    description: "your description",
+    completed: false,
+  },
+];
+const user = {
+  name: "Nakisha Carroll",
+  avatar: avatar,
+};
 function App() {
   return (
     <div>
-      <h1>To Do Today</h1>
-      <input type="text"></input>
-      <button> Add Item</button>
+      <nav>
+        {user.avatar}
+        {user.name}
+        <h1>To Do List</h1>
         <ul>
-          <li>Go to the store</li>
-          <li>Do Laundry</li>
-          <li>Go to the gym</li>
-          <li>Take a nap</li> 
-        </ul>
-        <nav>
-          <img alt="cat" src="./profile.png"/>
-          <ul>
+          {todoList.map((todo) =>{
+            return (
+
+              <h3>{todoList.description}
+              {todoList.title}</h3>
+            )
+          }
+          )}
           <li>To Do</li>
           <li>Dashboard</li>
           <li>Games</li>
-          </ul>
-        </nav>
+        </ul>
+      </nav>
     </div>
   );
 }
