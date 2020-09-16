@@ -30,15 +30,18 @@ function App() {
   return (
     <div>
       <nav>
-        {user.avatar}
-        {user.name}
+        <p>
+          {user.name}
+        </p>
+        <img alt="cat" src={user.avatar}></img>
+        
         <h1>To Do List</h1>
         <ul>
           {todoList.map((todo) =>{
             return (
 
-              <h3>{todoList.description}
-              {todoList.title}</h3>
+              <h3>{todo.description}
+              {todo.title}</h3>
             )
           }
           )}
