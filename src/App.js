@@ -30,21 +30,19 @@ function App() {
   return (
     <div>
       <nav>
-        <p>
-          {user.name}
-        </p>
+        <p>{user.name}</p>
         <img alt="cat" src={user.avatar}></img>
-        
-        <h1>To Do List</h1>
-        <ul>
-          {todoList.map((todo) =>{
-            return (
 
-              <h3>{todo.description}
-              {todo.title}</h3>
-            )
-          }
-          )}
+        <h1 style={styles.h1}>To Do List</h1>
+        <ul>
+          {todoList.map((todo) => {
+            return (
+              <h3>
+                {todo.description}
+                {todo.title}
+              </h3>
+            );
+          })}
           <li>To Do</li>
           <li>Dashboard</li>
           <li>Games</li>
@@ -53,5 +51,24 @@ function App() {
     </div>
   );
 }
-
 export default App;
+
+const styles = {
+  todoList: {
+    textAlign: "center",
+    display: "flex",
+    flexDirection: "columns",
+    alignItems: "center",
+  },
+  h1: {
+    color: "blue",
+    fontWeight: "bold",
+    background: "pink",
+  },
+  listItemStyles: {
+    padding: "1 rem",
+    margin: "1 rem",
+    borderRadius: "4rem",
+    border: "box",
+  },
+};
