@@ -1,6 +1,8 @@
 import React from "react";
 import "./App.css";
 import avatar from "./image/profile.png";
+import Todo from "./Todo";
+import Nav from "./Nav";
 
 const todoList = [
   {
@@ -28,27 +30,14 @@ const user = {
 };
 function App() {
   return (
-    <div>
-      <nav>
-        <p>{user.name}</p>
-        <img alt="cat" src={user.avatar}></img>
-
-        <h1 style={styles.h1}>To Do List</h1>
-        <ul>
-          {todoList.map((todo) => {
-            return (
-              <h3>
-                {todo.description}
-                {todo.title}
-              </h3>
-            );
-          })}
-          <li>To Do</li>
-          <li>Dashboard</li>
-          <li>Games</li>
-        </ul>
-      </nav>
-    </div>
+    <>
+      <Nav user={user}/>
+      <div>
+        {todoList.map((todo) => {
+          return <Todo todo={todo} key={todo.id} />;
+        })}
+      </div>
+    </>
   );
 }
 export default App;
