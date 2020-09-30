@@ -1,10 +1,16 @@
 import React from "react";
+import avatar from "./image/profile.png";
+
+const user = {
+  name: "Nakisha Carroll",
+  avatar: avatar,
+};
 
 function Nav(props) {
   return (
     <nav>
-      <p>{props.user.name}</p>
-      <img alt="cat" src={props.user.avatar}></img>
+      <p>{user.name}</p>
+      <img alt="cat" src={user.avatar}></img>
       <h1 style={styles.h1}>To Do List</h1>
     </nav>
   );

@@ -1,44 +1,60 @@
 import React from "react";
 import "./App.css";
-import avatar from "./image/profile.png";
 import Todo from "./Todo";
 import Nav from "./Nav";
-
-const todoList = [
-  {
-    id: 1,
-    title: "Go to Grocery",
-    description: "pick up recipe ingredients",
-    completed: false,
-  },
-  {
-    id: 2,
-    title: "Go to gym",
-    description: "jog a mile",
-    completed: false,
-  },
-  {
-    id: 3,
-    title: "Take a nap",
-    description: "your description",
-    completed: false,
-  },
-];
-const user = {
-  name: "Nakisha Carroll",
-  avatar: avatar,
-};
-function App() {
-  return (
-    <>
-      <Nav user={user}/>
-      <div>
-        {todoList.map((todo) => {
-          return <Todo todo={todo} key={todo.id} />;
-        })}
-      </div>
-    </>
-  );
+import shortid from "shortid";
+const TODOS_KEY = "myapp_todos";
+class App extends React.Component {
+  state = {
+    todoList: [],
+    newTodo: "",
+  };
+  handleInputChange = (event) => {
+    this.setState({ newTodo: event.target.value });
+  };
+  componentDidMount() {
+    const todoString = localStorage.getItem(TODOS_KEY);
+    if (todoString) {
+      this.setState({ todoList: JSON.parse(todoString) });
+    }
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.todoList !== this.state.todoList) {
+      localStorage.setItem(TODOS_KEY, JSON.stringify(this.state.todoList));
+    }
+  }
+  handleAddNewTodo = () => {
+    let newTodoObject = {
+      id: shortid.generate(),
+      name: this.state.newTodo,
+      description: "",
+      completed: false,
+    };
+    this.setState((state) => ({
+      todoList: [...state.todoList, newTodoObject],
+      newTodoObject: "",
+    }));
+  };
+  render() {
+    return (
+      <>
+        <Nav />
+        <div>
+          {this.state.todoList.map((todo) => {
+            return <Todo todo={todo} key={todo.id} />;
+          })}
+        </div>
+        <div>
+          <input
+            type="text"
+            value={this.state.newTodo}
+            onChange={this.handleInputChange}
+          ></input>
+          <button onClick={this.handleAddNewTodo}>Add New</button>
+        </div>
+      </>
+    );
+  }
 }
 export default App;
 
