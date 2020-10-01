@@ -6,7 +6,14 @@ import shortid from "shortid";
 const TODOS_KEY = "myapp_todos";
 class App extends React.Component {
   state = {
-    todoList: [],
+    todoList: [
+      {
+        id: shortid.generate(),
+        name: "Item 1",
+        description: "Test description",
+        completed: false,
+      },
+    ],
     newTodo: "",
   };
   handleInputChange = (event) => {
@@ -35,15 +42,45 @@ class App extends React.Component {
       newTodoObject: "",
     }));
   };
+
+  handleCheckInput = (id) => {
+    this.setState((state) => {
+      const newList = state.todoList.map((item) => {
+        if (item.id === id) {
+          return Object.assign({}, item, { completed: true });
+        } else {
+          return item;
+        }
+      });
+      return {
+        todoList: newList,
+      };
+    });
+  };
+
+  handleDelete = (id) => {
+    this.setState((state) => {
+      let newList = state.todoList.filter((item) => {
+        if (item.id === id) {
+          return item.id !== id;
+        } else {
+          return item;
+        }
+      });
+      return {
+        todoList: newList
+      }
+    })
+  }
   render() {
     return (
       <>
         <Nav />
-        <div>
-          {this.state.todoList.map((todo) => {
-            return <Todo todo={todo} key={todo.id} />;
-          })}
-        </div>
+        <Todo
+          todoList={this.state.todoList}
+          checkItem={this.handleCheckInput}
+          deleteItem={this.handleDelete}
+        />
         <div>
           <input
             type="text"
